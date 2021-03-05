@@ -38,6 +38,10 @@
                   {
                       route: 'fetchdata',
                       title: 'Fetchdata'
+                  },
+                  {
+                      route: 'todos',
+                      title: 'Todos'
                   }
               ])
           }
