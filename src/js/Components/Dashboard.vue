@@ -57,7 +57,7 @@
           <h6><strong>Task: </strong> {{ task.taskname }}</h6>
           <h6><strong>Date: </strong> {{ task.taskdate }}</h6>
           <h6>
-            <strong>Created At: </strong> {{ task.createdAt.toLocaleString() }}
+            <strong>Created: </strong> {{ task.createdAt.toLocaleString() }}
           </h6>
         </div>
       </div>
