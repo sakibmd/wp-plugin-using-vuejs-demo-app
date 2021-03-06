@@ -1,8 +1,12 @@
 <template>
-  <div id="section">
-    <h2>All Posts List With Details</h2>
+  <div class="container" id="section">
+    <h2 class="text-center my-5">All Posts List With Details</h2>
 
-    <div class="row single-post col-md-4 card" v-for="(post, index) in posts" :key="index">
+    <div
+      class="row single-post col-md-12 card"
+      v-for="(post, index) in posts"
+      :key="index"
+    >
       <div class="card-title">
         <span class="title">Title</span>
         {{ post.title }}
@@ -20,7 +24,7 @@
 export default {
   data() {
     return {
-      posts: []
+      posts: [],
     };
   },
   mounted() {
@@ -29,16 +33,16 @@ export default {
   methods: {
     fetchData() {
       fetch("https://jsonplaceholder.typicode.com/posts")
-        .then(res => {
+        .then((res) => {
           console.log(res);
           return res.json();
         })
-        .then(data => {
+        .then((data) => {
           this.posts = data;
           console.log(this.posts);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -52,6 +56,6 @@ span .title {
 }
 
 .row {
-    width: 100%;
+  width: 100%;
 }
 </style>

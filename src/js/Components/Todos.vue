@@ -19,16 +19,18 @@
               <div class="form-group">
                 <label for="newtask">Task</label>
                 <input
+                  required
                   type="text"
                   v-model="newtask"
                   class="form-control"
-                  placeholder="enter new task"
+                  placeholder="Enter new task"
                   id="newtask"
                 />
               </div>
               <div class="form-group">
                 <label for="date">Date</label>
                 <input
+                  required
                   type="date"
                   v-model="date"
                   class="form-control"
@@ -46,7 +48,9 @@
       <div class="col-md-6">
         <div class="card " v-for="(task, index) in tasksList" :key="index">
           <div class="d-flex justify-content-between">
-            <div><h3 class="font-weight-bold">Details</h3></div>
+            <div>
+              <h3 class="font-weight-bold">Details (Index: {{ index }})</h3>
+            </div>
             <div>
               <a
                 href=""

@@ -70,6 +70,7 @@ export default {
       newtask: "",
       date: "",
       tasksList: [],
+      oldRecords: [],
     };
   },
   methods: {
@@ -81,11 +82,11 @@ export default {
                     route: 'get-todos'
                 }
                 jQuery.get(ajaxurl,data)
-                    .then(
-                        response => {
-                            console.log(response);
+                    .then( response => {
+                          console.log(response);
                         }
                     )
+                   
             
     },
 
@@ -96,7 +97,8 @@ export default {
       //   createdAt: new Date(),
       // });
 
-      console.log(this.newtask);
+  this.fetchAllTasks();
+
       const myNewTask = {
         taskname: this.newtask,
         taskdate: this.date,
