@@ -42,11 +42,7 @@
           <div class="d-flex justify-content-between">
             <div><h3 class="font-weight-bold">Details</h3></div>
             <div>
-              <a
-                href=""
-                class="dashicons dashicons-trash"
-                @click.prevent="removeTask(index)"
-              ></a>
+              <a href="" class="dashicons dashicons-trash" @click.prevent="removeTask(index)" ></a>
             </div>
           </div>
           <h6><strong>Task: </strong> {{ task.taskname }}</h6>
