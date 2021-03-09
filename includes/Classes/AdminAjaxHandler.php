@@ -6,15 +6,15 @@ class AdminAjaxHandler
 {
     public function registerEndpoints()
     {
-        add_action('wp_ajax_first_wp_plugin_using_vuejs_admin_ajax', array($this, 'handleEndPoint'));
+        add_action('wp_ajax_add_todos_data', array($this, 'handleEndPoint'));
     }
     public function handleEndPoint()
     {
-        $route = sanitize_text_field($_REQUEST['route']);  
+        $route = sanitize_text_field($_REQUEST['route']);
 
         $validRoutes = array(
             'get-todos' => 'getTodos',
-            'add-todo' => 'addTodo'
+            'add-todo' => 'addTodo',
         );
 
         if (isset($validRoutes[$route])) {
@@ -27,26 +27,46 @@ class AdminAjaxHandler
 
     protected function getTodos()
     {
-        $todos = get_option( '__todosapp' );
 
-        wp_send_json_success($todos);
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'todos';
+        // var_dump($table_name);
+        $results = $wpdb->get_results("SELECT * FROM ${table_name}");
+        wp_send_json_success(array(
+            'todos' => $results,
+        ));
+
     }
 
     protected function addTodo()
     {
-        $myNewTask = $_REQUEST['myNewTask'];
-        // $taskName = $myNewTask['taskname'];
-        // $taskDate = $myNewTask['taskdate'];
-        // $createdAt = $myNewTask['createdAt'];
+        //$taskInfo = $_REQUEST['myNewTask'];
 
-        update_option('__todosapp', $myNewTask);
+        $taskInfo = wp_unslash($_REQUEST['myNewTask']);
+        $taskInfoConfig = json_decode(trim(stripslashes($taskInfo)), true);
 
+        $taskname = $taskInfoConfig['taskname'];
+        $taskdate = $taskInfoConfig['taskdate'];
+        $createdAt = $taskInfoConfig['createdAt'];
 
-        wp_send_json_success(
-            [
-                'message' => __('Successfully Added', 'textdomain')
-            ]
+        //var_dump($taskname);
+
+        //update_option('__todosapp', $myNewTask);
+
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'todos';
+        $wpdb->insert(
+            $table_name,
+            array(
+                'taskname' => $taskname,
+                'taskdate' => $taskdate,
+                'createdAt' => $createdAt,
+            )
         );
+
+        wp_send_json_success(array(
+            'message' => __('Successfully updated', 'textdomain'),
+        ));
 
     }
 }

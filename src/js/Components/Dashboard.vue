@@ -62,7 +62,8 @@
 <script>
 export default {
   mounted() {
-    this.fetchAllTasks();
+    this.fetchdata();
+    console.log('ss');
   },
   name: "Dashboard",
   data() {
@@ -70,35 +71,26 @@ export default {
       newtask: "",
       date: "",
       tasksList: [],
-      oldRecords: [],
     };
   },
   methods: {
 
-    fetchAllTasks(){
-      
+
+    fetchdata(){
                 const data = {
-                    action: 'first_wp_plugin_using_vuejs_admin_ajax',
+                    action: 'add_todos_data',
                     route: 'get-todos'
                 }
-                jQuery.get(ajaxurl,data)
-                    .then( response => {
-                          console.log(response);
-                        }
-                    )
-                   
-            
-    },
+                this.$get(data)
+                .then(res =>{
+                  this.tasksList =  res.data.todos;
+                  console.log(this.tasksList);  
+
+                })
+            },
 
     saveTasks() {
-      // this.tasksList.push({
-      //   taskname: this.newtask,
-      //   taskdate: this.date,
-      //   createdAt: new Date(),
-      // });
-
-  this.fetchAllTasks();
-
+    
       const myNewTask = {
         taskname: this.newtask,
         taskdate: this.date,
@@ -106,12 +98,12 @@ export default {
       };
       jQuery
         .post(ajaxurl, {
-          action: "first_wp_plugin_using_vuejs_admin_ajax",
+          action: "add_todos_data",
           route: "add-todo",
-          myNewTask: myNewTask,
+          myNewTask: JSON.stringify(myNewTask),
         })
         .then((response) => {
-          console.log(response);
+          console.log(response.data.message)
         });
 
       this.newtask = "";

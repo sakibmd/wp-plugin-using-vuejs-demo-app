@@ -52,7 +52,7 @@ class Menu
             'first_wp_plugin_using_vuejs_boot',
             FIRST_WP_PLUGIN_USING_VUEJS_URL.'assets/js/boot.js',
             array('jquery'),
-            FIRST_WP_PLUGIN_USING_VUEJS_VERSION,
+            time(),
             true
         );
        
@@ -62,7 +62,7 @@ class Menu
             'first_wp_plugin_using_vuejs_js',
             FIRST_WP_PLUGIN_USING_VUEJS_URL . 'assets/js/plugin-main-js-file.js',
             array( 'first_wp_plugin_using_vuejs_boot' ),
-            FIRST_WP_PLUGIN_USING_VUEJS_VERSION,
+            time(),
             true
         );
        

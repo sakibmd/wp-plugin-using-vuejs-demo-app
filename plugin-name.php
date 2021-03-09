@@ -28,12 +28,34 @@ Text Domain: textdomain
  * Copyright 2019 Plugin Name LLC. All rights reserved.
  */
 
+function todos_database()
+{
+    global $wpdb;
+    $table_name = $wpdb->prefix . "todos";
+    $sql = "CREATE TABLE {$table_name} (
+                        id INT NOT NULL AUTO_INCREMENT,
+                        taskname VARCHAR(250),
+                        taskdate VARCHAR(250),
+                        createdAt VARCHAR(250),
+                        PRIMARY KEY  (id)
+                    );";
+    require_once ABSPATH . "wp-admin/includes/upgrade.php";
+    dbDelta($sql);
+
+}
+register_activation_hook(__FILE__, 'todos_database');
+
+
+
+
+
 if (!defined('ABSPATH')) {
     exit;
 }
 if (!defined('FIRST_WP_PLUGIN_USING_VUEJS_VERSION')) {
+
     define('FIRST_WP_PLUGIN_USING_VUEJS_VERSION_LITE', true);
-    define('FIRST_WP_PLUGIN_USING_VUEJS_VERSION', '1.1.0');
+    define('FIRST_WP_PLUGIN_USING_VUEJS_VERSION', time());
     define('FIRST_WP_PLUGIN_USING_VUEJS_MAIN_FILE', __FILE__);
     define('FIRST_WP_PLUGIN_USING_VUEJS_URL', plugin_dir_url(__FILE__));
     define('FIRST_WP_PLUGIN_USING_VUEJS_DIR', plugin_dir_path(__FILE__));
@@ -43,7 +65,6 @@ if (!defined('FIRST_WP_PLUGIN_USING_VUEJS_VERSION')) {
     {
         public function boot()
         {
-
             if (is_admin()) {
                 $this->loadCSS();
                 $this->adminHooks();
