@@ -15,6 +15,7 @@ class AdminAjaxHandler
         $validRoutes = array(
             'get-todos' => 'getTodos',
             'add-todo' => 'addTodo',
+            'delete-todo' => 'deleteTodo'
         );
 
         if (isset($validRoutes[$route])) {
@@ -48,6 +49,7 @@ class AdminAjaxHandler
         $taskname = $taskInfoConfig['taskname'];
         $taskdate = $taskInfoConfig['taskdate'];
         $createdAt = $taskInfoConfig['createdAt'];
+        $editedId = $taskInfoConfig['editedId'];
 
         //var_dump($taskname);
 
@@ -55,18 +57,55 @@ class AdminAjaxHandler
 
         global $wpdb;
         $table_name = $wpdb->prefix . 'todos';
-        $wpdb->insert(
-            $table_name,
-            array(
-                'taskname' => $taskname,
-                'taskdate' => $taskdate,
-                'createdAt' => $createdAt,
-            )
-        );
+
+        if ($editedId) {
+            $wpdb->update(
+                $table_name,
+                array(
+                    'taskname' => $taskname,
+                    'taskdate' => $taskdate,
+                    'createdAt' => $createdAt,
+                ),
+                ['id' => $editedId], //where reference
+
+            );
+        } else {
+            $wpdb->insert(
+                $table_name,
+                array(
+                    'taskname' => $taskname,
+                    'taskdate' => $taskdate,
+                    'createdAt' => $createdAt,
+                ),
+            );
+        }
 
         wp_send_json_success(array(
             'message' => __('Successfully updated', 'textdomain'),
         ));
+
+    }
+
+    protected function deleteTodo(){
+        $taskInfo = wp_unslash($_REQUEST['id']);
+        $taskInfoConfig = json_decode(trim(stripslashes($taskInfo)), true);
+
+        $deletedId = $taskInfoConfig['deletedId'];
+        //dd($deletedId);
+
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'todos';
+
+        
+        //$wpdb->delete( $table_name, array( 'id' => $deletedId ) );
+        $sql = "DELETE FROM `$table_name` WHERE id=$deletedId";
+        $wpdb->query($sql);
+
+        wp_send_json_success(array(
+            'message' => __('Successfully deleted', 'textdomain'),
+        ));
+        
+
 
     }
 }

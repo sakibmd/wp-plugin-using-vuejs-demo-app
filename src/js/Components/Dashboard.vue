@@ -1,12 +1,25 @@
 <template>
   <div class="container">
-    <h1 class="my-3 text-center">This is the plugin Dashboard</h1>
+    <h1 class="my-3 text-center">Work Schedule Managing App</h1>
 
     <div class="row">
       <div class="col-md-6">
         <div class="card">
-          <div class="card-header">
-            Work Schedule Managing App
+          <div class="card-header bg-success text-white">
+            <div class="d-flex justify-content-between">
+              <div>
+                <h4 v-if="!editedId">Add New Task</h4>
+                <h4 v-else>Update Task</h4>
+              </div>
+              <div>
+                <a
+                  href=""
+                  class="btn btn-sm btn-warning float-right"
+                  @click.prevent="resetForm()"
+                  >Reset</a
+                >
+              </div>
+            </div>
           </div>
           <br />
           <div class="card-header">
@@ -32,7 +45,8 @@
                 />
               </div>
 
-              <button class="btn btn-success">Save</button>
+              <button v-if="!editedId" class="btn btn-success">Save</button>
+              <button v-else class="btn btn-success">Update</button>
             </form>
           </div>
         </div>
@@ -42,7 +56,16 @@
           <div class="d-flex justify-content-between">
             <div><h3 class="font-weight-bold">Details</h3></div>
             <div>
-              <a href="" class="dashicons dashicons-trash" @click.prevent="removeTask(index)" ></a>
+              <a
+                href=""
+                class="dashicons dashicons-edit"
+                @click.prevent="editTodo(index)"
+              ></a>
+              <a
+                href=""
+                class="dashicons dashicons-trash"
+                @click.prevent="removeTask(index)"
+              ></a>
             </div>
           </div>
           <h6><strong>Task: </strong> {{ task.taskname }}</h6>
@@ -57,40 +80,45 @@
 </template>
 <script>
 export default {
-  mounted() {
-    this.fetchdata();
-    console.log('ss');
-  },
   name: "Dashboard",
+
   data() {
     return {
       newtask: "",
       date: "",
       tasksList: [],
+      editedId: null,
     };
   },
+  mounted() {
+    this.fetchdata();
+  },
   methods: {
+    editTodo(index) {
+      //console.log(index);
 
+      this.newtask = this.tasksList[index].taskname;
+      this.date = this.tasksList[index].taskdate;
+      this.editedId = this.tasksList[index].id;
+    },
 
-    fetchdata(){
-                const data = {
-                    action: 'add_todos_data',
-                    route: 'get-todos'
-                }
-                this.$get(data)
-                .then(res =>{
-                  this.tasksList =  res.data.todos;
-                  console.log(this.tasksList);  
-
-                })
-            },
+    fetchdata() {
+      const data = {
+        action: "add_todos_data",
+        route: "get-todos",
+      };
+      this.$get(data).then((res) => {
+        this.tasksList = res.data.todos;
+        //console.log(this.tasksList);
+      });
+    },
 
     saveTasks() {
-    
       const myNewTask = {
         taskname: this.newtask,
         taskdate: this.date,
         createdAt: new Date(),
+        editedId: this.editedId,
       };
       jQuery
         .post(ajaxurl, {
@@ -99,20 +127,35 @@ export default {
           myNewTask: JSON.stringify(myNewTask),
         })
         .then((response) => {
-          console.log(response.data.message)
+          //console.log(response.data.message);
+          this.fetchdata();
         });
 
       this.newtask = "";
       this.date = "";
+      this.editedId = null;
     },
 
     removeTask(index) {
-      this.tasksList.splice(index, 1);
+      const deleteInfo = {
+        deletedId: this.tasksList[index].id,
+      };
+      jQuery
+        .post(ajaxurl, {
+          action: "add_todos_data",
+          route: "delete-todo",
+          id: JSON.stringify(deleteInfo),
+        })
+        .then((response) => {
+          //console.log(response.data.message);
+          this.fetchdata();
+        });
     },
 
     resetForm() {
       this.newtask = "";
       this.date = "";
+      this.editedId = null;
     },
   },
 };
