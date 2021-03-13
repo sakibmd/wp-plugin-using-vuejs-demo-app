@@ -1,8 +1,8 @@
 var readline = require('readline');
 
 var rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
+  input: process.sthin,
+  output: process.sthout
 });
 
 function convertToSlug(Text)

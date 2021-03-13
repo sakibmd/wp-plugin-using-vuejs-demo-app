@@ -42,6 +42,10 @@
                   {
                       route: 'todos',
                       title: 'Todos'
+                  },
+                  {
+                      route: 'ninja-table',
+                      title: 'Ninja Table'
                   }
               ])
           }

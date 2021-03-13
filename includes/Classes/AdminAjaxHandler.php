@@ -7,6 +7,8 @@ class AdminAjaxHandler
     public function registerEndpoints()
     {
         add_action('wp_ajax_add_todos_data', array($this, 'handleEndPoint'));
+        //add_action('wp_ajax_search_result_position_wise', array($this, 'handleEndPoint'));
+
     }
     public function handleEndPoint()
     {
@@ -15,7 +17,8 @@ class AdminAjaxHandler
         $validRoutes = array(
             'get-todos' => 'getTodos',
             'add-todo' => 'addTodo',
-            'delete-todo' => 'deleteTodo'
+            'delete-todo' => 'deleteTodo',
+            //'search-result-position-wise' => 'search_result_position_wise'
         );
 
         if (isset($validRoutes[$route])) {
@@ -81,12 +84,13 @@ class AdminAjaxHandler
         }
 
         wp_send_json_success(array(
-            'message' => __('Successfully updated', 'textdomain'),
+            'message' => __('Successfully updated', 'texthomain'),
         ));
 
     }
 
-    protected function deleteTodo(){
+    protected function deleteTodo()
+    {
         $taskInfo = wp_unslash($_REQUEST['id']);
         $taskInfoConfig = json_decode(trim(stripslashes($taskInfo)), true);
 
@@ -96,16 +100,12 @@ class AdminAjaxHandler
         global $wpdb;
         $table_name = $wpdb->prefix . 'todos';
 
-        
         //$wpdb->delete( $table_name, array( 'id' => $deletedId ) );
         $sql = "DELETE FROM `$table_name` WHERE id=$deletedId";
         $wpdb->query($sql);
 
         wp_send_json_success(array(
-            'message' => __('Successfully deleted', 'textdomain'),
+            'message' => __('Successfully deleted', 'texthomain'),
         ));
-        
-
-
     }
 }

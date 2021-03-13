@@ -8,7 +8,7 @@ Version: 1.0.0
 Author: Sakib Mohammed
 Author URI: https:sakibmd.xyz/
 License:  GPL2
-Text Domain: textdomain
+Text Domain: texthomain
  */
 
 /**
@@ -41,7 +41,6 @@ function todos_database()
                     );";
     require_once ABSPATH . "wp-admin/includes/upgrade.php";
     dbDelta($sql);
-
 }
 register_activation_hook(__FILE__, 'todos_database');
 
@@ -73,11 +72,11 @@ if (!defined('FIRST_WP_PLUGIN_USING_VUEJS_VERSION')) {
 
         public function loadCSS()
         {
-            function textdomain_load_css()
+            function texthomain_load_css()
             {
                 wp_enqueue_style('dbdemo-main', "//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css");
             }
-            add_action('admin_enqueue_scripts', 'textdomain_load_css');
+            add_action('admin_enqueue_scripts', 'texthomain_load_css');
         }
 
         public function adminHooks()
@@ -98,9 +97,9 @@ if (!defined('FIRST_WP_PLUGIN_USING_VUEJS_VERSION')) {
             });
         }
 
-        public function textDomain()
+        public function texthomain()
         {
-            load_plugin_textdomain('first_wp_plugin_using_vuejs', false, basename(dirname(__FILE__)) . '/languages');
+            load_plugin_texthomain('first_wp_plugin_using_vuejs', false, basename(dirname(__FILE__)) . '/languages');
         }
     }
 

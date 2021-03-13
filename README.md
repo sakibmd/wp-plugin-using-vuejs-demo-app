@@ -26,7 +26,7 @@ If you want to make setup by hand you can do it also. But auto setup is the best
 * Change all the   `PLUGINNAME`  to YOURPLUGINNAME    (Upper case)
 * Change all the   `PluginName`  to YourPluginName    (Upper Camel Case)
 * Change all the   `Plugin_Name` to your_plugin_name
-* Change all the   `textdomain`  to yourtextdomain
+* Change all the   `texthomain`  to yourtexthomain
 
 </details>
 

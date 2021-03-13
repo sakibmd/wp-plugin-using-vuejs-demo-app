@@ -3,6 +3,7 @@ import Settings from './Components/Settings';
 import Supports from './Components/Supports';
 import FetchedData from './Components/FetchedData';
 import Todos from './Components/Todos';
+import NinjaTable from './Components/NinjaTable';
 
 export const routes = [
     {
@@ -29,5 +30,10 @@ export const routes = [
         path: '/todos',
         name: 'todos',
         component: Todos
+    },
+    {
+        path: '/ninja-table',
+        name: 'ninja-table',
+        component: NinjaTable
     }
 ];

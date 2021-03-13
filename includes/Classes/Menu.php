@@ -16,7 +16,7 @@ class Menu
             return;
         }
 
-        $title = __('first_wp_plugin_using_vuejs', 'textdomain');
+        $title = __('first_wp_plugin_using_vuejs', 'texthomain');
         global $submenu;
         add_menu_page(
             $title,
@@ -29,17 +29,17 @@ class Menu
         );
 
         $submenu['first_wp_plugin_using_vuejs.php']['my_profile'] = array(
-            __('Plugin Dashboard', 'textdomain'),
+            __('Plugin Dashboard', 'texthomain'),
             $menuPermission,
             'admin.php?page=first_wp_plugin_using_vuejs.php#/',
         );
         $submenu['first_wp_plugin_using_vuejs.php']['settings'] = array(
-            __('Settings', 'textdomain'),
+            __('Settings', 'texthomain'),
             $menuPermission,
             'admin.php?page=first_wp_plugin_using_vuejs.php#/settings',
         );
         $submenu['first_wp_plugin_using_vuejs.php']['supports'] = array(
-            __('Supports', 'textdomain'),
+            __('Supports', 'texthomain'),
             $menuPermission,
             'admin.php?page=first_wp_plugin_using_vuejs.php#/supports',
         );
