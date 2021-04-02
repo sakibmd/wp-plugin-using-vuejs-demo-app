@@ -2,9 +2,9 @@
   <div class="container" id="section">
     <h2 class="text-center my-5">Our Team</h2>
     <div class="row search-area">
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="form-group">
-          <label>Marital Status</label><br />
+          <label>Position</label><br />
           <select
             v-model="position_wise_search"
             class="form-control"
@@ -19,7 +19,7 @@
           </select>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
         <div class="form-group">
           <label>Country</label><br />
           <select
@@ -167,37 +167,27 @@ export default {
     searchResult() {
 
        
-      if (
-        this.position_wise_search == "all" &&
-        this.country_wise_search == "all"
-      ) {
+      if ( this.position_wise_search == "all" && this.country_wise_search == "all") {
         this.result = this.tabledata;
       } else {
-        if (
-          this.position_wise_search != "all" &&
-          this.country_wise_search != "all"
-        ) {
-          this.result = this.tabledata.filter((el) => {
-            return (
-              el.position_slug == `${this.position_wise_search}` &&
-              el.country == `${this.country_wise_search}`
-            );
-          });
-        } else if (
-          this.position_wise_search == "all" &&
-          this.country_wise_search != "all"
-        ) {
-          this.result = this.tabledata.filter((el) => {
-            return el.country == `${this.country_wise_search}`;
-          });
-        } else if (
-          this.position_wise_search != "all" &&
-          this.country_wise_search == "all"
-        ) {
-          this.result = this.tabledata.filter((el) => {
-            return el.position_slug == `${this.position_wise_search}`;
-          });
-        }
+            if (this.position_wise_search != "all" && this.country_wise_search != "all") {
+             this.result = this.tabledata.filter((el) => {
+                return (
+                el.position_slug == `${this.position_wise_search}` &&
+                el.country == `${this.country_wise_search}`
+                );
+            });
+            } 
+            else if ( this.position_wise_search == "all" && this.country_wise_search != "all") {
+                this.result = this.tabledata.filter((el) => {
+                    return el.country == `${this.country_wise_search}`;
+                });
+            } 
+            else if (this.position_wise_search != "all" && this.country_wise_search == "all") {
+                this.result = this.tabledata.filter((el) => {
+                    return el.position_slug == `${this.position_wise_search}`;
+                });
+            }
       }
     },
   },

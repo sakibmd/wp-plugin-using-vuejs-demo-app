@@ -44,10 +44,6 @@ function todos_database()
 }
 register_activation_hook(__FILE__, 'todos_database');
 
-
-
-
-
 if (!defined('ABSPATH')) {
     exit;
 }
@@ -99,7 +95,7 @@ if (!defined('FIRST_WP_PLUGIN_USING_VUEJS_VERSION')) {
 
         public function texthomain()
         {
-            load_plugin_texthomain('first_wp_plugin_using_vuejs', false, basename(dirname(__FILE__)) . '/languages');
+            load_plugin_textdomain('first_wp_plugin_using_vuejs', false, basename(dirname(__FILE__)) . '/languages');
         }
     }
 

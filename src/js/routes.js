@@ -4,9 +4,10 @@ import Supports from './Components/Supports';
 import FetchedData from './Components/FetchedData';
 import Todos from './Components/Todos';
 import NinjaTable from './Components/NinjaTable';
+import GithubInfo from './Components/GithubInfo';
 
-export const routes = [
-    {
+
+export const routes = [{
         path: '/',
         name: 'dashboard',
         component: Dashboard
@@ -35,5 +36,10 @@ export const routes = [
         path: '/ninja-table',
         name: 'ninja-table',
         component: NinjaTable
+    },
+    {
+        path: '/github-info',
+        name: 'github-info',
+        component: GithubInfo
     }
 ];
